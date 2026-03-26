@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Eksplorasi interaktif flora dan fauna endemik Indonesia secara ringan">
+    <title>Endemic - Bumi Pertiwi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <nav>
+        <div class="logo">
+            <span class="logo-accent">En</span>demic
+        </div>
+        <button class="hamburger-btn" id="hamburger-menu" aria-label="Toggle Menu">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#" id="link-explore" class="active">Eksplorasi</a></li>
+            <li><a href="#" id="link-gallery">Galeri</a></li>
+            <li><a href="#" id="link-conservation">Konservasi</a></li>
+            <li><a href="#" id="link-about">Tentang Kami</a></li>
+        </ul>
+    </nav>
+
+    <div id="main-content">
+        <div id="background-text-container">
+            <h1 id="background-text">BUMI PERTIWI</h1>
+            <p class="subtitle-text">Keajaiban Flora & Fauna Endemik Indonesia</p>
+        </div>
+    </div>
+
+    <div id="map-container"></div>
+
+    <aside id="info-panel" class="hidden">
+        <div class="panel-header">
+            <h2 id="info-title">Nama Provinsi</h2>
+            <button id="close-info" aria-label="Tutup panel">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <div class="panel-content">
+            <div class="info-section">
+                <div class="section-badge fauna-badge">Fauna Endemik</div>
+                <h3 id="info-fauna">Harimau Sumatera</h3>
+                <div class="image-placeholder fauna-img-placeholder" id="fauna-img-box">
+                     <span class="placeholder-text">Ilustrasi Fauna</span>
+                </div>
+                <p class="info-desc">Kekayaan satwa liar khas wilayah ini yang dilindungi untuk generasi masa depan.</p>
+                <button class="btn-detail" id="btn-detail-fauna" data-prov="Indonesia" data-type="fauna">Lihat Detail Fauna</button>
+            </div>
+            
+            <div class="divider"></div>
+
+            <div class="info-section">
+                <div class="section-badge flora-badge">Flora Endemik</div>
+                <h3 id="info-flora">Bunga Bangkai</h3>
+                <div class="image-placeholder flora-img-placeholder" id="flora-img-box">
+                    <span class="placeholder-text">Ilustrasi Flora</span>
+                </div>
+                <p class="info-desc">Tumbuhan endemik eksotis yang menawarkan nilai ekologis tinggi bagi alam kita.</p>
+                <button class="btn-detail" id="btn-detail-flora" data-prov="Indonesia" data-type="flora">Lihat Detail Flora</button>
+            </div>
+        </div>
+    </aside>
+
+    <div id="detail-overlay" class="hidden">
+        <div class="detail-backdrop"></div>
+        <div class="detail-content-wrapper">
+            <button id="close-detail" aria-label="Tutup Detail">
+                &larr; Kembali ke Peta
+            </button>
+            
+            <div class="detail-header">
+                <span class="detail-badge" id="detail-badge-type">Kategori</span>
+                <h1 class="detail-title" id="detail-title">Nama Spesies</h1>
+                <h3 class="detail-subtitle" id="detail-subtitle">Habitat: Provinsi</h3>
+            </div>
+            
+            <div class="detail-body">
+                <div class="detail-image-large" id="detail-img-box">
+                    <span class="placeholder-text" style="font-size: 1.2rem;">Foto Resolusi Tinggi</span>
+                </div>
+                <div class="detail-text" id="detail-text">
+                    <p>Memuat deskripsi...</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div id="modal-container" class="hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content-wrapper">
+            <button id="close-modal" aria-label="Tutup">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            
+            <div id="modal-gallery" class="modal-section hidden">
+                <h2 class="modal-title">Galeri <span class="modal-title-accent">Endemic</span></h2>
+                <p class="modal-desc">Koleksi visual keanekaragaman flora dan fauna endemik Indonesia yang membanggakan.</p>
+                <div class="gallery-grid" id="gallery-grid">
+                </div>
+            </div>
+
+            <div id="modal-conservation" class="modal-section hidden">
+                <h2 class="modal-title">Upaya <span class="modal-title-accent">Konservasi</span></h2>
+                <div class="conservation-content">
+                    <div class="c-card">
+                        <h3>Perlindungan Habitat Asli</h3>
+                        <p>Penetapan cagar alam, suaka margasatwa, dan taman nasional untuk menjaga hutan tropis agar tetap asri.</p>
+                    </div>
+                    <div class="c-card">
+                        <h3>Penangkaran & Pelepasliaran</h3>
+                        <p>Program pembiakan hewan langka di luar habitat untuk dikembalikan ke alam bebas guna meningkatkan populasinya.</p>
+                    </div>
+                    <div class="c-card">
+                        <h3>Edukasi Masyarakat</h3>
+                        <p>Penyuluhan dan pemberdayaan masyarakat agar menjaga kelestarian hutan bebas pembalakan liar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-about" class="modal-section hidden">
+                <h2 class="modal-title">Tentang <span class="modal-title-accent">Endemic</span></h2>
+                <div class="about-grid">
+                    <div class="about-main">
+                        <h3>Menjaga Sang Jati Diri Bangsa</h3>
+                        <p>Lahir dari kesadaran akan pentingnya pelestarian alam, platform ini bertujuan merangkum kekayaan flora dan fauna endemik Indonesia ke dalam sebuah pengalaman visual interaktif. Kami berharap dedikasi ini tidak hanya memperluas wawasan ekologi, namun juga memupuk rasa bangga generasi muda terhadap warisan murni Ibu Pertiwi.</p>
+                        
+                        <div class="tech-stack-container">
+                            <h4>Teknologi Terapan</h4>
+                            <div class="tech-badges">
+                                <span class="tech-badge">Vanilla JavaScript</span>
+                                <span class="tech-badge">D3.js Data Visualization</span>
+                                <span class="tech-badge">Glassmorphism UI/UX</span>
+                                <span class="tech-badge">100% Responsive Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-vision">
+                        <div class="vision-card">
+                            <div class="v-icon">⚡</div>
+                            <div>
+                                <h4>Arsitektur Berperforma Tinggi</h4>
+                                <p>Dirender dengan manipulasi SVG vektor murni yang menjamin interaksi grafis memukau tanpa mengorbankan _frame rate_ pada device manapun.</p>
+                            </div>
+                        </div>
+                        <div class="vision-card">
+                            <div class="v-icon">📚</div>
+                            <div>
+                                <h4>Revolusi Literasi Digital</h4>
+                                <p>Mentransformasi kepingan data atlas geografis statis konvensional menjadi sebuah modul ensiklopedia visual yang cerdas dan intuitif.</p>
+                            </div>
+                        </div>
+                        <div class="vision-card" style="border-left: 3px solid var(--accent-color);">
+                            <div class="v-icon">🏆</div>
+                            <div>
+                                <h4>Karya Kompetisi Dedikatif</h4>
+                                <p>Website ini merupakan manifestasi nyata dari karya teknologi yang direkayasa khusus dan didedikasikan untuk memajukan literasi sains serta ekologi nasional.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
