@@ -650,6 +650,90 @@ nav {
     color: var(--accent-color);
 }
 
+/* Team Contact Section */
+.team-contact {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.team-contact h4 {
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    margin-bottom: 1.2rem;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+.team-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.team-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: rgba(217, 130, 99, 0.06);
+    border: 1px solid rgba(217, 130, 99, 0.15);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    background: rgba(217, 130, 99, 0.12);
+    border-color: rgba(217, 130, 99, 0.4);
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(217, 130, 99, 0.1);
+}
+
+.team-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.team-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.team-ig {
+    font-size: 0.82rem;
+    color: var(--accent-color);
+    font-weight: 400;
+}
+
+.ig-icon {
+    color: var(--accent-color);
+    opacity: 0.7;
+    flex-shrink: 0;
+    transition: opacity 0.3s;
+}
+
+.team-card:hover .ig-icon {
+    opacity: 1;
+}
+
 /* Map specific styles */
 #map-container {
     position: absolute;
