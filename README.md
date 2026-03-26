@@ -1,7 +1,7 @@
 # Nusantara Endemik - Bumi Pertiwi
 
 ## Institusi
-[Nama Institusi Anda]
+Universitas Informatika dan Bisnis Indonesia
 
 ## Anggota Tim
 - Ketua: [Firdaus Haqiqi]
@@ -17,4 +17,4 @@ Nusantara Endemik adalah sebuah platform eksplorasi ensiklopedia visual interakt
 - **Pemilihan Subtema:** Mengangkat tema konservasi, edukasi lingkungan, dan keanekaragaman hayati melalui sentuhan teknologi web modern (D3.js, Vanilla JavaScript) dan antarmuka Glassmorphism yang memukau. Website ini merupakan manifestasi nyata dari karya teknologi yang direkayasa khusus dan didedikasikan untuk literasi sains.
 
 ## Link Web
-//
+https://firdaus-hqq.github.io/Endemic/
